@@ -32,7 +32,7 @@ jobs:
           url: 'https://clenterprise.oktapreview.com/oauth2/default/v1/token'
           method: 'POST'
           customHeaders: '{"Content-Type": "application/x-www-form-urlencoded"}'
-          data: '{"grant_type"="client_credentials"&"client_id"="Tricentis_Cloud_API"&"client_secret"="RBt6QJzF3oDhnrL8OXKdBD_CU7NZf5ygmeV-KEY9"&"scope"="E2GApi"}'
+          data: '{"grant_type"="client_credentials"'&'"client_id"="Tricentis_Cloud_API"'&'"client_secret"="RBt6QJzF3oDhnrL8OXKdBD_CU7NZf5ygmeV-KEY9"'&'"scope"="E2GApi"}'
       
       - name: send a request to E2G API
         uses: fjogeleit/http-request-action@v1
