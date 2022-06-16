@@ -27,13 +27,15 @@ jobs:
 
       # Runs my request to the E2G API to start the tests, uses previous generated in okta: CLient ID and Client Secret
       - name: RequestToken 
-        uses: fjogeleit/http-request-action@v1
-        with:
-          url: 'https://clenterprise.oktapreview.com/oauth2/default/v1/token'
-          method: 'POST'
-          client_id: 'Tricentis_Cloud_API'
-          customHeaders: '{"Content-Type": "application/x-www-form-urlencoded"}'
-          data: '{"client_id":"Tricentis_Cloud_API", "grant_type":"client_credentials", "client_secret":"RBt6QJzF3oDhnrL8OXKdBD_CU7NZf5ygmeV-KEY9", "scope":"E2GApi"}'
+        run: |
+          curl \
+          --location --request POST 'https://clenterprise.oktapreview.com/oauth2/default/v1/token' \
+          --header 'Content-Type: application/x-www-form-urlencoded' \
+          --data-urlencode 'grant_type=client_credentials' \
+          --data-urlencode 'client_id=E2G_Agents' \
+          --data-urlencode 'client_secret=${{ secrets.TRICENTRISCLOUDID }}' \
+          --data-urlencode 'scope=E2GApi' \
+          --output response.json
       
       - name: send a request to E2G API
         uses: fjogeleit/http-request-action@v1
