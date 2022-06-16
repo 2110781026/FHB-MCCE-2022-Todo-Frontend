@@ -38,14 +38,14 @@ jobs:
           --output response.json
           
       - name: Token
-        run: echo "TOKEN=$(cat response.json | jq -r .access_token)"
+        run: echo "TOKEN=$(cat response.json | jq -r .access_token)" >> {{ secrets.TOKEN }}
       
       - name: send a request to E2G API
         uses: fjogeleit/http-request-action@v1
         with:
           url: 'https://clenterprise.my.tricentis.com/default/_e2g/api/flowExecutions'
           method: 'POST'
-          bearerToken: $TOKEN
+          bearerToken: ${{ TOKEN }}
           customHeaders: '{"Content-Type": "application/json"}'
           data: '{"flowId": "73960ac8-7d45-40fd-b6d2-c77b91618e37", "timeoutInMinutes": "300"}'
           
