@@ -36,13 +36,16 @@ jobs:
           --data-urlencode 'client_secret=${{ secrets.TRICENTRISCLOUDID }}' \
           --data-urlencode 'scope=E2GApi' \
           --output response.json
+          
+      - name: persist access token in environment $GITHUB_ENV
+        run: echo "TRICENTIS_ACCESS_TOKEN=$(cat response.json | jq -r .access_token)"
       
       - name: send a request to E2G API
         uses: fjogeleit/http-request-action@v1
         with:
           url: 'https://clenterprise.my.tricentis.com/default/_e2g/api/flowExecutions'
           method: 'POST'
-          bearerToken: echo ${{ $(cat response.json | jq -r .access_token) }}
+          bearerToken: ${{ TRICENTIS_ACCESS_TOKEN }}
           customHeaders: '{"Content-Type": "application/json"}'
           data: '{"flowId": "73960ac8-7d45-40fd-b6d2-c77b91618e37", "timeoutInMinutes": "300"}'
           
