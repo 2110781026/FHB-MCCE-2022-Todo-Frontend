@@ -38,7 +38,7 @@ jobs:
           --output response.json
           
       - name: Token
-        run: echo "TOKEN=$(cat response.json | jq -r .access_token)" >> $ENV
+        run: echo "TOKEN=$(cat response.json | jq -r .access_token)" >> $GITHUB_ENV
       
       - name: send a request to E2G API
         uses: fjogeleit/http-request-action@v1
